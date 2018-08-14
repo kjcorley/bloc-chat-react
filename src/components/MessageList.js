@@ -25,7 +25,7 @@ class MessageList extends Component {
     render() {
         return(
             <section className="mx-auto" id="message-list">
-                    {this.state.messages.filter(message => message.roomId == this.props.activeRoom.key).map( (message, index) => 
+                    {this.state.messages.filter(message => message.roomId === this.props.activeRoom.key).map( (message, index) => 
                         <div key={index} className="message">
                             <div>
                                 <span className="username">{message.username}</span>
