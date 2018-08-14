@@ -25,7 +25,7 @@ class User extends Component {
             <section>
                 <button type="button" onClick={() => this.signIn()}>Sign In</button>
                 <button type="button" onClick={() => this.signOut()}>Sign Out</button>
-                <span>{this.props.user == null ? 'Guest' : this.props.user.displayName}</span>
+                <span>{this.props.user === null ? 'Guest' : this.props.user.displayName}</span>
             </section>
         )
     }

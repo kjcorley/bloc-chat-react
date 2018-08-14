@@ -20,7 +20,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeRoom: [],
+      activeRoom: '',
       user: []
     }
   }
@@ -47,15 +47,20 @@ class App extends Component {
               user={this.state.user}
               />
             <div className='row'>
-              <RoomList className='col-4'
-                firebase={firebase}
-                handleRoomClick={(room) => this.handleRoomClick(room)}
-                user={this.state.user}
-              />
-              <MessageList className='col-8'
-                firebase={firebase}
-                activeRoom={this.state.activeRoom}
-              />
+              <div className='col-sm-4'>
+                <RoomList
+                  firebase={firebase}
+                  handleRoomClick={(room) => this.handleRoomClick(room)}
+                  user={this.state.user}
+                />
+              </div>
+              <div className='col-sm-8'>
+                <MessageList
+                  firebase={firebase}
+                  activeRoom={this.state.activeRoom}
+                  user={this.state.user}
+                />
+              </div>
             </div>
           </div>
         </main>
