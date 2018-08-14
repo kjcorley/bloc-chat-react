@@ -17,37 +17,21 @@ class MessageList extends Component {
         })
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.activeRoom !== prevProps.activeRoom) {
-
-        }
-    }
-
-    roomChange() {
-        if (!this.props.activeRoom.key) {
-            this.setState({ messages: [] });
-        }
-        this.messagesRef.orderByChild('roomId').equalTo(this.props.activeRoom.key).once('value', snapshot => {
-            let newMessages = [];
-            snapshot.forEach((childSnapshot) => {
-                let message = childSnapshot.val();
-                message.key = childSnapshot.key
-                newMessages.push(message);
-            });
-            newMessages.sort((a, b) => {
-                return a.sentAt - b.sentAt;
-            });
-            this.setState({ messages: newMessages});
-        })
+    convertTime(epochTime) {
+        let newDate = new Date(epochTime);
+        return newDate.toLocaleTimeString();
     }
 
     render() {
         return(
-            <section id="message-list">
-                    {this.state.messages.map( (message) => 
-                        <div className="message">
-                            <div className="username">{message.username}</div>
-                            <div className="timestamp">{message.sentAt}</div>
+            <section className="mx-auto" id="message-list">
+                    {this.state.messages.filter(message => message.roomId == this.props.activeRoom.key).map( (message, index) => 
+                        <div key={index} className="message">
+                            <div>
+                                <span className="username">{message.username}</span>
+                                <span> - </span>
+                                <span className="timestamp">{this.convertTime(message.sentAt)}</span>
+                            </div>
                             <div className="message-content">{message.content}</div>
                         </div>
                     )}

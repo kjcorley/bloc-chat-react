@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList';
 import MessageList from './components/MessageList';
-import { runInThisContext } from 'vm';
 
 var config = {
   apiKey: "AIzaSyB63u-QCRwjFlWO7zrLcZP3a_ktDLr5B4s",
@@ -33,14 +33,20 @@ class App extends Component {
         <header>
           <h1>Bloc Chat</h1>
         </header>
-        <RoomList
-          firebase={firebase}
-          handleRoomClick={(room) => this.handleRoomClick(room)}
-        />
-        <MessageList
-          firebase={firebase}
-          activeRoom={this.state.activeRoom}
-        />
+        <main>
+          <div className='container-fluid'>
+            <div className='row'>
+              <RoomList className='col-4'
+                firebase={firebase}
+                handleRoomClick={(room) => this.handleRoomClick(room)}
+              />
+              <MessageList className='col-8'
+                firebase={firebase}
+                activeRoom={this.state.activeRoom}
+              />
+            </div>
+          </div>
+        </main>
       </div>
     );
   }
