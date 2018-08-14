@@ -17,9 +17,41 @@ class MessageList extends Component {
         })
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.activeRoom !== prevProps.activeRoom) {
+
+        }
+    }
+
+    roomChange() {
+        if (!this.props.activeRoom.key) {
+            this.setState({ messages: [] });
+        }
+        this.messagesRef.orderByChild('roomId').equalTo(this.props.activeRoom.key).once('value', snapshot => {
+            let newMessages = [];
+            snapshot.forEach((childSnapshot) => {
+                let message = childSnapshot.val();
+                message.key = childSnapshot.key
+                newMessages.push(message);
+            });
+            newMessages.sort((a, b) => {
+                return a.sentAt - b.sentAt;
+            });
+            this.setState({ messages: newMessages});
+        })
+    }
+
     render() {
         return(
-            <p>messages go here</p>
+            <section id="message-list">
+                    {this.state.messages.map( (message) => 
+                        <div className="message">
+                            <div className="username">{message.username}</div>
+                            <div className="timestamp">{message.sentAt}</div>
+                            <div className="message-content">{message.content}</div>
+                        </div>
+                    )}
+            </section>
         )
     }
 }
