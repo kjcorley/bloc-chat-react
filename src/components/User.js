@@ -23,9 +23,9 @@ class User extends Component {
     render() {
         return(
             <section>
-                <button type="button" onClick={() => this.signIn()}>Sign In</button>
-                <button type="button" onClick={() => this.signOut()}>Sign Out</button>
                 <span>{this.props.user === null ? 'Guest' : this.props.user.displayName}</span>
+                <button type="button" className='btn btn-primary' onClick={() => this.signIn()}>Sign In</button>
+                <button type="button" className='btn btn-secondary' onClick={() => this.signOut()}>Sign Out</button>
             </section>
         )
     }

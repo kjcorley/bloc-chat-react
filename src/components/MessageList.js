@@ -48,7 +48,7 @@ class MessageList extends Component {
                         <div>
                             <span className="username">{message.username}</span>
                             <span> - </span>
-                            <span className="timestamp">{this.convertTime(message.sentAt)}</span>
+                            <span className="timestamp font-weight-light">{this.convertTime(message.sentAt)}</span>
                         </div>
                         <div className="message-content">{message.content}</div>
                     </div>

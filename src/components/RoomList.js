@@ -22,6 +22,13 @@ class RoomList extends Component {
         this.setState({ newRoomName: e.target.value})
     }
 
+    deleteRoom(key, index) {
+        this.roomsRef.child(key).remove();
+        let newRooms = this.state.rooms;
+        newRooms.splice(index, 1);
+        this.setState({rooms: newRooms});
+    }
+
     createRoom(e) {
         e.preventDefault();
         if(!this.state.newRoomName) { return }
@@ -33,14 +40,17 @@ class RoomList extends Component {
 
     render () {
         return(
-            <section id="room-list">
+            <section id="room-list" className='text-left'>
                 <form onSubmit={ (e) => this.createRoom(e)}>
                     <input type="text" name="roomname" value={this.state.newRoomName} onChange={ (e) => this.handleChange(e)}/>
                     <input type="submit" value="Create Room"/>
                 </form>
                 <div>
-                    {this.state.rooms.map( (room) => 
-                        <section className="room-name" key={room.key} onClick={()=>this.props.handleRoomClick(room)}>{room.name}</section>
+                    {this.state.rooms.map( (room, index) =>
+                        <section key={index}>
+                            <span id='delete-room' onClick={() => this.deleteRoom(room.key, index)}>x </span>
+                            <span className={room.key === this.props.activeRoom.key ? 'font-weight-bold' : null} key={room.key} onClick={()=>this.props.handleRoomClick(room)}>{room.name}</span>
+                        </section>
                     )}
                 </div>
             </section>
